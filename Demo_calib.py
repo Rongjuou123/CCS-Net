@@ -33,15 +33,17 @@ from calibration import Calib
 
 # Flags
 DistortionCorrectionFlag = False
-corner_dect_flag = False
+corner_dect_flag = True
 
 
 # path 
 # NEED TO FOLLOW THE FIX FILE FOLDER CONFIGURATION IN README.md
-root_path = 'path/to/data/folder'
+# root_path = 'demo_data\demo_noise_test'
+root_path = 'demo_data\chessboard\left1'
 # root_path = './demo_data/demo_noise' # example
 dist_corr_model_path = 'path/to/distortion/correction/model/.pth'
-corner_dect_model_path = 'path/to/corner/detection/model/.pth'
+# corner_dect_model_path = 'weights\CornerDetection\PretrainedCornerDetectionModel.pth'
+corner_dect_model_path = r"C:\Users\admin\Desktop\CCS-New\CCS\UNet_10\UNet\CP_epoch40.pth"
 
 
 #-------------------------------------Distortion Correction
@@ -82,13 +84,13 @@ gt_path = os.path.join(root_path,'GT')
 img_path = os.path.join(root_path, 'img')
 
 
-calibrator = Calib([480,480],'Demo')
+calibrator = Calib([2464,2056],'Demo')
 heatmap_list = calibrator.get_all_heatmaps(heatmap_path)
-ret, mtx, dist, rvecs, tvecs = calibrator.calib(heatmap_list, img_path=img_path, ref_path=ref_corner_gt_path, sort_mod='gt')
+ret, mtx, dist, rvecs, tvecs = calibrator.calib(heatmap_list, img_path=img_path, ref_path=ref_corner_gt_path, sort_mod='corner')
 
 
 print(f'The reprojection error={ret}')
 print(f'The intrinsic matrix: {mtx}')
 
-calibrator.show_accuracy_by_gt(gt_path,mtx)
+# calibrator.show_accuracy_by_gt(gt_path,mtx)
 

@@ -1,7 +1,7 @@
 """class used to generate synthesized data for camera calibration"""
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 import math
 from math import sin, cos, pi, floor, ceil, tan, sqrt
 import random
@@ -11,6 +11,8 @@ from tqdm import tqdm
 import copy
 from PIL import ImageFilter
 import cv2
+from scipy import ndimage
+
 
 from utils.utils import *
 from settings.settings import *
@@ -25,7 +27,7 @@ class Checkboard(object):
     NOTATION:
         Corners are [x,y,1]^T -> img[x,y]
     """
-    def __init__(self, save_path, name, corner_size=[5,5], img_size = 480):
+    def __init__(self, save_path, name, corner_size=[5,5], img_size = [2056, 2464]):
         """
         """
         
@@ -98,6 +100,36 @@ class Checkboard(object):
         return T
 
     def move_checkboard(self, d=5, phi=0, theta=0):
+        """move the checkboard accroding to d, theta(in the y-z plane), phi(in the x-z plane)
+            # The move converts to T=[tx,ty,tz] as 
+            #     tx = d * cos(phi) * sin(theta)
+            #     ty = d * sin(phi)
+            #     tz = d * cos(phi) * cos(theta)
+            Modified: d is z
+                tx = d * tan(phi)
+                ty = d * sqrt(tan(theta)**2 - tan(phi)**2)
+                tz = d
+        Args:
+            phi, theta as degree
+        """
+
+        theta = theta*pi/180 # up the x-z plane
+        phi = phi*pi/180 #in x-z plane
+
+        # tx = d*cos(phi)*sin(theta)
+        # ty = d*sin(phi)
+        # tz = d*cos(phi)*cos(theta)
+
+        tx = d*tan(phi)
+        ty = d*tan(theta)
+        tz = d
+
+        T = [tx, ty, tz]
+        self.T = np.matrix(T).T
+
+        return self.T
+    
+    def move_checkboard_move(self, d=5, phi=0, theta=0):
         """move the checkboard accroding to d, theta(in the y-z plane), phi(in the x-z plane)
             # The move converts to T=[tx,ty,tz] as 
             #     tx = d * cos(phi) * sin(theta)
@@ -235,13 +267,14 @@ class Checkboard(object):
         P = np.hstack((self.R, self.T))
         self.P = self.K * P
         self.img_points = []
+        print(self.img_size)
         for p_wc in self.world_points:
             p_wc = np.matrix(p_wc)
             p_ic = self.P * p_wc.T
             p_ic[0] /= p_ic[2]
             p_ic[1] /= p_ic[2]
             p_ic[2] /= p_ic[2]
-            if p_ic[0] < 5 or p_ic[0] > self.img_size-5 or p_ic[1] < 5 or p_ic[1] > self.img_size-5:
+            if p_ic[0] < 5 or p_ic[0] > self.img_size[0]-5 or p_ic[1] < 5 or p_ic[1] > self.img_size[1]-5:
                 inside_img_flag = False
                 break
             self.img_points.append(p_ic)
@@ -258,25 +291,27 @@ class Checkboard(object):
         for p_wc in self.world_points:
             p_wc = np.matrix(p_wc)
             p_ic = self.P * p_wc.T
-        
-            if p_ic[0]/p_ic[2] < 5 or p_ic[0]/p_ic[2]  > self.img_size-5 or p_ic[1]/p_ic[2]  < 5 or p_ic[1]/p_ic[2]  > self.img_size-5:
+            # print(p_ic)
+            if p_ic[0]/p_ic[2] < 5 or p_ic[0]/p_ic[2]  > self.img_size[0]-5 or p_ic[1]/p_ic[2]  < 5 or p_ic[1]/p_ic[2]  > self.img_size[1]-5:
                 inside_img_flag = False
                 break
+            p_ic[0] *= 1.4
+            p_ic[1] *= 1.4
             self.img_points.append(p_ic)
-        
+
         return inside_img_flag, self.P, self.img_points
 
     def print_img(self, show_flag=False):
         """
         """
-        H = self.img_size
-        W = self.img_size
+        H = self.img_size[1]
+        W = self.img_size[0]
         sigma = 0.01
         heatmap = np.zeros([W,H])
 
         # find the right boundary
-        x_min = 480
-        y_min = 480
+        x_min = 2464
+        y_min = 2056
         x_max = 0
         y_max = 0
 
@@ -427,10 +462,13 @@ class Checkboard(object):
         end_w = ceil(points_fix[-1][0,0]/points_fix[-1][2,0]) + checkboard_block_size
         start_h = ceil(points_fix[0][1,0]/points_fix[0][2,0]) - checkboard_block_size
         end_h = ceil(points_fix[-1][1,0]/points_fix[-1][2,0]) + checkboard_block_size
-
+        start_h -= 900
+        start_w -= 900
+        end_h -= 900
+        end_w -= 900
         return start_h, start_w, end_h, end_w, checkboard_block_size
 
-    def draw_the_whiteside(self, img, start_h, start_w, end_h, end_w, x_side_l = 10, y_side_l = 20):
+    def draw_the_whiteside(self, img, start_h, start_w, end_h, end_w, x_side_l = 5, y_side_l = 5):
         """
         """
         img[start_w-x_side_l:start_w,start_h-y_side_l:end_h+y_side_l]=255
@@ -450,7 +488,7 @@ class Checkboard(object):
         img = img.convert('L')
         return img
 
-    def draw_fix_checkboard(self, d=10, show_flag = False, fusion_flag=False):
+    def draw_fix_checkboard(self, d=160, show_flag = False, fusion_flag=False, show_blank_flag = True):
         """Draw fix checkboard picture
         Conditions:
             R = E
@@ -461,7 +499,7 @@ class Checkboard(object):
             2. determine the start and end value in X/Y axis, and the block size
             3. draw white side and white/black block
         """
-        assert d == 10
+        assert d == 160
         self.world_location_load()
         if not self.camera_load_flag: 
             print("Need Load Camera Parameters!")
@@ -476,9 +514,11 @@ class Checkboard(object):
             return
 
         # step 2
-        img_fix = np.ones((self.img_size, self.img_size)) # ones for fusion
+        corners = []
+        img_fix = np.ones((self.img_size[0], self.img_size[1])) # ones for fusion
         start_h, start_w, end_h, end_w, checkboard_block_size = self.deside_the_border()
         img_fix = self.draw_the_whiteside(img_fix, start_h, start_w, end_h, end_w)
+        # print(end_h, end_w)
         # start drawing
         w = start_w
         h = start_h
@@ -489,43 +529,51 @@ class Checkboard(object):
                 for i in range(w, w + checkboard_block_size):
                     for j in range(h, h + checkboard_block_size):
                         if flag:
-                            img_fix[i,j] = 255
-                        else:
                             img_fix[i,j] = 0
-
+                        else:
+                            img_fix[i,j] = 255
+                if w > start_w and h > start_h:
+                    corners.append([w, h])
                 h += checkboard_block_size
                 flag = not flag
-
+                
             # print(flag%2, start_w, start_h)
-
+            # corners.append([w, h])
             h = start_h
             w += checkboard_block_size
+            
             if self.height%2 != 0:
                 flag = not flag
+            # corners.append([w, h])
+            # if show_blank_flag:
+        # img_blank = Image.fromarray(img_fix)
+        # img_blank.show()
         
-        if fusion_flag:
-            import random
-            bg_img_list = glob.glob(os.path.join(FUSIONPATH,'*.jpg'))
-            img_index = random.randint(0,len(bg_img_list)-1)
-            bg_img = cv2.imread(bg_img_list[img_index], 0)
-            bg_img = bg_img.astype(np.uint8)
-            bg_img = cv2.resize(bg_img, (480,480))
-            index_255 = np.where(img_fix > 1)
-            img_homo_after_fusion = img_fix*bg_img
-            img_homo_after_fusion[index_255] = img_fix[index_255]
-            img_fix = img_homo_after_fusion
-
+        # if fusion_flag:
+        #     import random
+        #     # img_fix = np.array(img_fix.convert('L'))
+        #     bg_img_list = glob.glob(os.path.join(FUSIONPATH, '*.png')) + glob.glob(os.path.join(FUSIONPATH, '*.jpg')) + glob.glob(os.path.join(FUSIONPATH, '*.JPEG'))
+        #     img_index = random.randint(0,len(bg_img_list)-1)
+        #     bg_img = cv2.imread(bg_img_list[img_index], 0)
+        #     bg_img = bg_img.astype(np.uint8)
+        #     bg_img = cv2.resize(bg_img, (480,480))
+        #     index_255 = np.where(img_fix > 1)
+        #     img_homo_after_fusion = img_fix*bg_img
+        #     img_homo_after_fusion[index_255] = img_fix[index_255]
+        #     img_fix = img_homo_after_fusion
+        corners = np.array(corners)
 
         img_fix = Image.fromarray(img_fix)
+        # img_fix.save(os.path.join(self.img_save_path, self.name+'_fix.jpg'))
 
         # img_fix = self.draw_the_blackdot(img_fix, start_h, start_w, checkboard_block_size)
 
         if show_flag:
             img_fix.show()
         
-        return img_fix, tf
+        return img_fix, tf, corners
 
-    def draw_move_checkboard(self, img_fix, img_bg, config, save_flag=False, show_flag=False, fusion_flag =False, heatmap_flag = False, dist_flag=False, dist_k=[1,0.1,0], uneven_light_flag = False):
+    def draw_move_checkboard(self, img_fix, img_bg, corners, config, save_flag=False, show_flag=False, fusion_flag =False, heatmap_flag = False, dist_flag=False, dist_k=[1,0.1,0], uneven_light_flag = False):
         """
         Args:
             config['x/y/z']:Rm
@@ -551,7 +599,7 @@ class Checkboard(object):
         phi = config['phi']
         theta = config['theta']
 
-        tm = self.move_checkboard(d, phi, theta)
+        tm = self.move_checkboard_move(d, phi, theta)
 
         tf = config['tf']
         df = tf[2,0]
@@ -564,17 +612,38 @@ class Checkboard(object):
         Kt = K*tm
 
         inside_img_flag, P, img_points = self.shoot()
-
+        # img_points_int = np.int32(np.array(img_points))
+        
         if inside_img_flag:
-            img_move = self.draw_checkboard_by_interp(img_fix, KRK_, KRtf, Kt, df, show_flag)
-
+            img_move, img_points, corners = self.draw_checkboard_by_interp(img_fix, KRK_, KRtf, Kt, df, img_points, corners, show_flag)
+            # img_move.show() 
+            # img_move = self.process_chessboard(np.array(img_move), corners_process)
             if dist_flag:
                 img_dist, ori_corner, dist_corner = self.apply_distortion(np.array(img_move),k=dist_k)
+
+            if fusion_flag:
+                import random
+                img_move = np.array(img_move.convert('L'))
+                # print(img_move)
+                bg_img_list = glob.glob(os.path.join(FUSIONPATH, '*.png')) + glob.glob(os.path.join(FUSIONPATH, '*.jpg')) + glob.glob(os.path.join(FUSIONPATH, '*.JPEG'))
+                img_index = random.randint(0,len(bg_img_list)-1)
+                bg_img = cv2.imread(bg_img_list[img_index], 0)
+                bg_img = bg_img.astype(np.uint8)
+                bg_img = cv2.resize(bg_img, (2464,2056))
+                index_255 = np.where(img_move > 1)
+                img_homo_after_fusion = img_move*bg_img
+                # print(img_homo_after_fusion)
+                img_homo_after_fusion[index_255] = img_move[index_255]
+                img_move = img_homo_after_fusion
+                img_move = Image.fromarray(img_move)
+                img_move = img_move.convert('RGB')
+                img_move = img_move.convert('L')
 
             if uneven_light_flag:
                 img_move = self.apply_uneven_light(img_move)
                 img_move = Image.fromarray(img_move)
                 img_move = img_move.convert('L')
+                
 
             print(f"""
                     parameters are: \n
@@ -585,7 +654,8 @@ class Checkboard(object):
 
             if heatmap_flag:
                 assert len(self.heatmap_save_path) > 1 
-                heatmap = self.draw_heatmap(img_points)
+                # heatmap = self.draw_heatmap(img_points)
+                heatmap = self.draw_heatmap(corners)
 
 
             if save_flag:
@@ -630,7 +700,7 @@ class Checkboard(object):
         """
         img = np.array(img.convert('L'), dtype=np.uint8)
         img_bg = img_bg.convert('L')
-        img_bg = img_bg.resize((self.img_size, self.img_size))
+        img_bg = img_bg.resize((self.img_size[0], self.img_size[1]))
         img_bg = np.array(img_bg, dtype=np.uint8)
         index_255 = np.where(img != 1)
         img_after_fusion = img*img_bg
@@ -638,93 +708,284 @@ class Checkboard(object):
 
         return img_after_fusion
 
-    def draw_checkboard_by_interp(self, img_fix, KRK_, KRtf, Kt, df, show_flag=False):
-        """
-        """
-        img_move = np.zeros((self.img_size, self.img_size)) #  use ones for fusion
-        img_f_array = np.array(img_fix.convert('L'))
+    # def draw_checkboard_by_interp(self, img_fix, KRK_, KRtf, Kt, df, img_points, corners, show_flag=False):
+    #     """
+    #     """
+    #     # print('here!')
+    #     img_move = np.ones((self.img_size[0], self.img_size[1])) #  use ones for fusion
+    #     img_f_array = np.array(img_fix.convert('L'))
+    #     corners_trans = []
+    #     for x_f in range(self.img_size[0]-2):
+    #         for y_f in range(self.img_size[1]-2):
+    #             pf_h = np.matrix(np.ones((3,1)))
+    #             X_f = x_f*df
+    #             Y_f = y_f*df
+    #             pf_h[0,0] = X_f
+    #             pf_h[1,0] = Y_f
+    #             pf_h[2,0] = df
+    #             pm_h = KRK_*pf_h - KRtf + Kt
+    #             x_m = pm_h[0,0] / pm_h[2,0]
+    #             y_m = pm_h[1,0] / pm_h[2,0]
 
-        for x_f in range(self.img_size-2):
-            for y_f in range(self.img_size-2):
-                pf_h = np.matrix(np.zeros((3,1)))
-                X_f = x_f*df
-                Y_f = y_f*df
-                pf_h[0,0] = X_f
-                pf_h[1,0] = Y_f
-                pf_h[2,0] = df
-                pm_h = KRK_*pf_h - KRtf + Kt
+    #             if x_m > self.img_size[0]-1 or y_m > self.img_size[1]-1 or x_m < 0 or y_m < 0:
+    #                 continue
+                
+    #             x_m_int = math.floor(x_m)
+    #             y_m_int = math.floor(y_m)
+                    
+    #             dx = x_m - x_m_int
+    #             dy = y_m - y_m_int
+                
+    #             img_move[x_m_int,y_m_int] = (1-dx)*(1-dy)*img_f_array[x_f,y_f] + dy*(1-dx)*img_f_array[x_f,y_f+1] + \
+    #                                            (1-dy)*dx*img_f_array[x_f+1,y_f] + dy*dx*img_f_array[x_f+1,y_f+1]
+    #             img_move[x_m_int,y_m_int+1] = (1-dx)*(1-dy)*img_f_array[x_f,y_f+1] + dy*(1-dx)*img_f_array[x_f,y_f+2] + \
+    #                                     (1-dy)*dx*img_f_array[x_f+1,y_f+1] + dx*dy*img_f_array[x_f+1,y_f+2]
+    #             img_move[x_m_int+1,y_m_int] = (1-dx)*(1-dy)*img_f_array[x_f+1,y_f] + dy*(1-dx)*img_f_array[x_f+1,y_f+1] + \
+    #                                     (1-dy)*dx*img_f_array[x_f+2,y_f] + dx*dy*img_f_array[x_f+2,y_f+1]
+    #             img_move[x_m_int+1,y_m_int+1] = (1-dx)*(1-dy)*img_f_array[x_f+1,y_f+1] + dy*(1-dx)*img_f_array[x_f+1,y_f+2] + \
+    #                                     (1-dy)*dx*img_f_array[x_f+2,y_f+1] + dx*dy*img_f_array[x_f+2,y_f+2]
+                
+    #             if x_f in corners[:, 0] and y_f in corners[:, 1]:
+    #                 corners_trans.append([x_m_int - 1, y_m_int - 1])
+    #     corners_trans = np.array(corners_trans)
+    #     img_m = Image.fromarray(img_move)
+    #     img_m = img_m.convert('RGB')
+    #     img_m = img_m.filter(ImageFilter.GaussianBlur(radius=0.4)) # 1.6 with distance=6~8 is good
+    #     img_m = img_m.convert('L')
+    #     if show_flag:
+    #         img_m.show()
+    #     # print(img_points)
+    #     return img_m, img_points, corners_trans
+
+    def draw_checkboard_by_interp(self, img_fix, KRK_, KRtf, Kt, df, img_points, corners, show_flag=False):
+        img_size = self.img_size
+        img_f_array = np.array(img_fix.convert('L'))
+        
+        # 1. 使用累积缓冲区避免条纹
+        accum_buffer = np.zeros((img_size[0], img_size[1], 2))  # [weight_sum, value_sum]
+        
+        # 2. 严格类型转换
+        KRK_ = np.asarray(KRK_, dtype=np.float64).reshape(3,3)
+        KRtf = np.asarray(KRtf, dtype=np.float64).reshape(3,1)
+        Kt = np.asarray(Kt, dtype=np.float64).reshape(3,1)
+        df = float(df)
+        corners_trans = []
+        # 3. 精确实现原始映射（带抗条纹处理）
+        for x_f in range(img_size[0]-2):
+            for y_f in range(img_size[1]-2):
+                # 原始变换公式
+                pf_h = np.array([[x_f*df], [y_f*df], [df]])
+                pm_h = KRK_ @ pf_h - KRtf + Kt
+                if pm_h[2,0] == 0:
+                    continue
+                    
                 x_m = pm_h[0,0] / pm_h[2,0]
                 y_m = pm_h[1,0] / pm_h[2,0]
                 
-                if x_m > self.img_size-1 or y_m > self.img_size-1 or x_m < 0 or y_m < 0:
+                # 边界检查
+                if not (0 <= x_m < img_size[0]-1 and 0 <= y_m < img_size[1]-1):
                     continue
-                
-                x_m_int = math.floor(x_m)
-                y_m_int = math.floor(y_m)
-                
+                    
+                # 整数和小数部分
+                x_m_int = int(np.floor(x_m))
+                y_m_int = int(np.floor(y_m))
                 dx = x_m - x_m_int
                 dy = y_m - y_m_int
                 
-                img_move[x_m_int,y_m_int] = (1-dx)*(1-dy)*img_f_array[x_f,y_f] + dy*(1-dx)*img_f_array[x_f,y_f+1] + \
-                                               (1-dy)*dx*img_f_array[x_f+1,y_f] + dy*dx*img_f_array[x_f+1,y_f+1]
-                img_move[x_m_int,y_m_int+1] = (1-dx)*(1-dy)*img_f_array[x_f,y_f+1] + dy*(1-dx)*img_f_array[x_f,y_f+2] + \
-                                        (1-dy)*dx*img_f_array[x_f+1,y_f+1] + dx*dy*img_f_array[x_f+1,y_f+2]
-                img_move[x_m_int+1,y_m_int] = (1-dx)*(1-dy)*img_f_array[x_f+1,y_f] + dy*(1-dx)*img_f_array[x_f+1,y_f+1] + \
-                                        (1-dy)*dx*img_f_array[x_f+2,y_f] + dx*dy*img_f_array[x_f+2,y_f+1]
-                img_move[x_m_int+1,y_m_int+1] = (1-dx)*(1-dy)*img_f_array[x_f+1,y_f+1] + dy*(1-dx)*img_f_array[x_f+1,y_f+2] + \
-                                        (1-dy)*dx*img_f_array[x_f+2,y_f+1] + dx*dy*img_f_array[x_f+2,y_f+2]
-
+                # 抗条纹权重计算
+                w_main = (1-dx)*(1-dy)
+                w_right = (1-dx)*dy
+                w_bottom = dx*(1-dy)
+                w_diag = dx*dy
+                
+                # 累积到缓冲区（抗条纹核心）
+                accum_buffer[x_m_int, y_m_int] += [w_main, w_main*img_f_array[x_f,y_f]]
+                if y_m_int+1 < img_size[0]:
+                    accum_buffer[x_m_int, y_m_int+1] += [w_right, w_right*img_f_array[x_f,y_f+1]]
+                if x_m_int+1 < img_size[1]:
+                    accum_buffer[x_m_int+1, y_m_int] += [w_bottom, w_bottom*img_f_array[x_f+1,y_f]]
+                if x_m_int+1 < img_size[1] and y_m_int+1 < img_size[0]:
+                    accum_buffer[x_m_int+1, y_m_int+1] += [w_diag, w_diag*img_f_array[x_f+1,y_f+1]]
+                
+                if x_f in corners[:, 0] and y_f in corners[:, 1]:
+                    corners_trans.append([x_m_int - 1, y_m_int - 1])
+        corners_trans = np.array(corners_trans)
+        print(corners_trans.shape)
+        # try:
+        #     corners_trans = np.reshape(corners_trans, (7, 8, 2))
+        # except ValueError as e:
+        #     raise ValueError(f"无法将角点数组重塑为(7,8,2)，形状: {corners_trans.shape}") from e
+        # 4. 抗条纹后处理
+        with np.errstate(divide='ignore', invalid='ignore'):
+            img_move = np.where(accum_buffer[:,:,0] > 0,
+                            accum_buffer[:,:,1] / accum_buffer[:,:,0],
+                            1).astype(np.uint8)
+        
+        # 5. 严格匹配原始输出流程
+        # print('img_m[1, 1]:',img_move[3, 3])
+        # print(img_move)
         img_m = Image.fromarray(img_move)
         img_m = img_m.convert('RGB')
-        img_m = img_m.filter(ImageFilter.GaussianBlur(radius=1.6)) # 1.6 with distance=6~8 is good
-        img_m= img_m.convert('L')
+        img_m = img_m.convert('L')
+        
         if show_flag:
             img_m.show()
+            
+        return img_m, img_points, corners_trans
 
-        return img_m
+
+    def process_chessboard(self, img_array, corners, pattern_size=None):
+        """
+        棋盘格二合一处理（隔离+修复）
+        参数:
+            img_array: 输入图像数组(0-255)
+        返回:
+            处理后的PIL图像（已隔离非棋盘区域+修复网格）
+        """
+        kernel_size = 3
+        # print(corners.shape)
+        
+        # 1. 转灰度并转换为NumPy数组
+        if img_array.ndim == 3:
+            gray_pil = Image.fromarray(img_array).convert('L')
+        else:
+            gray_pil = Image.fromarray(img_array)
+        gray = np.array(gray_pil)  # shape: (h, w)
+        try:
+            corners_process = np.reshape(corners, (7, 8, 2))
+        except ValueError as e:
+            raise ValueError(f"无法将角点数组重塑为(7,8,2)，形状: {corners.shape}") from e
+        top_left = corners_process[0, 0] 
+        # top_left[0], top_left[1] = top_left[1], top_left[0]
+        # top_left[0] -= 10
+        # top_left[1] -= 10
+
+        top_right = corners_process[0,7] 
+        # top_right[0], top_right[1] = top_right[1], top_right[0]
+        # top_right[0] += 10
+        # top_right[1] -= 10
+
+        bot_left = corners_process[6, 0] 
+        # bot_left[0], bot_left[1] = bot_left[1], bot_left[0]
+        # bot_left[0] -= 10
+        # bot_left[1] += 10
+
+        bot_right = corners_process[6, 7]
+        # bot_right[0], bot_right[1] = bot_right[1], bot_right[0]
+        # bot_right[0] += 10
+        # bot_right[1] += 10
+
+        # 2. 基于四个角点创建多边形掩码（替代Otsu二值化）
+        corners_poly = np.array([top_left, top_right, bot_right, bot_left], dtype=np.int32)
+        corners_poly = corners_poly[:,::-1]
+        chessboard_mask = np.zeros_like(gray)  # 初始全为0（背景）
+        cv2.fillPoly(chessboard_mask, [corners_poly], 255)  # 棋盘区域设为255
+
+
+        # 3. 前景内细分白格（亮）和黑格（暗）
+        # 使用多边形掩码替代binary_foreground
+        white_mask = np.logical_and(chessboard_mask == 255, gray > 128)  # 使用固定阈值128
+        black_mask = np.logical_and(chessboard_mask == 255, gray <= 128)
+        bg_mask = chessboard_mask == 0
+
+        # 4. 构建初始二值数组（白=255，黑=0，背景=1）
+        arr = np.ones_like(gray) * 1  # 背景默认1
+        arr[white_mask] = 255         # 白格标记255
+        arr[black_mask] = 0           # 黑格标记0
+
+        # 5. 形态学闭运算（仅处理白格，保护黑格/背景）
+        def dilate(arr):
+            h, w = arr.shape
+            result = np.ones((h, w), dtype=np.uint8)
+            for y in range(h):
+                for x in range(w):
+                    if arr[y, x] == 255:  # 仅处理白格
+                        y1, y2 = max(0, y - kernel_size//2), min(h, y + kernel_size//2 + 1)
+                        x1, x2 = max(0, x - kernel_size//2), min(w, x + kernel_size//2 + 1)
+                        result[y1:y2, x1:x2] = 255
+            return result
+        
+        def erode(arr):
+            h, w = arr.shape
+            result = np.ones((h, w), dtype=np.uint8)
+            for y in range(h):
+                for x in range(w):
+                    y1, y2 = max(0, y - kernel_size//2), min(h, y + kernel_size//2 + 1)
+                    x1, x2 = max(0, x - kernel_size//2), min(w, x + kernel_size//2 + 1)
+                    # 仅修复白格内部（核内全为白格）
+                    if np.all(arr[y1:y2, x1:x2] == 255):  
+                        result[y, x] = 255
+            return result
+        
+        # 闭运算（膨胀填隙 → 腐蚀修边）
+        dilated = dilate(arr)
+        closed = erode(dilated)
+
+        # 6. 合成最终结果（严格保持黑格=0，背景=1，白格=255）
+        result = np.ones_like(gray) * 1  # 背景置1
+        result[black_mask] = 0           # 黑格置0
+        result[closed == 255] = 255      # 白格用修复后结果
+        
+        # 将掩码应用到结果（可选，保持原有功能不变）
+        # result = np.where(mask == 1, 1, result)
+        del corners_process, top_left
+        
+        return Image.fromarray(result)
+        
+
 
     def draw_heatmap(self, img_points):
         """
+        使用矩阵运算优化的热力图生成函数（最终修复版）
         """
-        heatmap = np.zeros((self.img_size, self.img_size))
-        corners = img_points
-        W = self.img_size
-        H = self.img_size
-        sigma = 0.01
-
-        for x in range(W):
-            for y in range(H):
-                r = np.Infinity
-                for corner in corners:
-                    # print(corner)
-                    # corners = [[240,240,1]]
-                   
-                    xc, yc, _ = float(corner[0]), float(corner[1]), float(corner[2])
-                    
-                    x_norm = x / W
-                    y_norm = y / H
-
-                    x_center_cor = xc / W
-                    y_center_cor = yc / H
-
-                    r_temp = (x_norm - x_center_cor)*(x_norm - x_center_cor) + (y_norm - y_center_cor)*(y_norm - y_center_cor)
-                    r = min(r_temp, r)
-                
-                if r > 50:
-                    continue
-                # print(r)
-                # Gaussion = 1/math.sqrt(2*np.pi*sigma*sigma) * np.exp(-(r)/(2*sigma*sigma))
-                Gaussion = np.exp(-(r)/(2*sigma*sigma))
-                # print(Gaussion)
-                heatmap[x,y] += Gaussion
-
-        # heatmap /= (np.max(heatmap)+1e-5)
-        # heatmap *= math.sqrt(2*np.pi*sigma*sigma)
-        # heatmap *= 255
-        # heatmap[int(corners[0][0]), int(corners[0][1])] = 255
-        # img = Image.fromarray(heatmap)
-        # img.show()
-
+        # 获取图像尺寸
+        W, H = self.img_size[1], self.img_size[0]
+        # W, H = self.img_size[0], self.img_size[1]
+        
+        # 初始化热力图
+        heatmap = np.zeros((H, W), dtype=np.float32)
+        
+        # 转换角点列表为NumPy数组
+        corners = np.array(img_points, dtype=np.float32)
+        
+        if len(corners) == 0:
+            return heatmap
+        
+        # 提取角点坐标
+        xc = corners[:, 1]
+        yc = corners[:, 0]
+        
+        # 创建网格坐标
+        y_grid, x_grid = np.mgrid[0:H, 0:W]
+        
+        # 向量化计算每个像素到所有角点的距离的平方
+        dx = x_grid[np.newaxis, :, :] - xc[:, np.newaxis, np.newaxis]
+        dy = y_grid[np.newaxis, :, :] - yc[:, np.newaxis, np.newaxis]
+        r_squared = dx ** 2 + dy ** 2
+        
+        # 对每个像素，找到最近角点的距离平方
+        min_r_squared = np.min(r_squared, axis=0)
+        
+        # 设置高斯核参数
+        sigma = max(0.2, H * 0.003)
+        sigma_squared = sigma ** 2
+        
+        # 应用高斯函数 - 关键修改：使用扁平化索引
+        mask = min_r_squared <= 50 * sigma_squared
+        heatmap_flat = heatmap.flatten()
+        mask_flat = mask.flatten()
+        min_r_squared_flat = min_r_squared.flatten()
+        
+        # 使用扁平化数组进行赋值，避免维度不匹配
+        heatmap_flat[mask_flat] = np.exp(-min_r_squared_flat[mask_flat] / (2 * sigma_squared))
+        
+        # 重塑回原始形状
+        heatmap = heatmap_flat.reshape((H, W))
+        
+        # 归一化热力图到[0,1]范围
+        if np.max(heatmap) > 0:
+            heatmap = heatmap / np.max(heatmap)
+        
         return heatmap
 
     def apply_distortion(self, img, W = 480, k=[1, 0.5, 0]):
@@ -821,7 +1082,7 @@ class Checkboard(object):
         [W, H] = img_size
         # sigma = 0.2 + np.random.randn()/10 * 3
         # sigma = 0.2 if sigma<0.2 else sigma
-        sigma = 0.4
+        sigma = 0.7
         light = 255
         center_w = np.random.randint(W//8, W*7//8)
         center_h = np.random.randint(H//4, H*3//4)

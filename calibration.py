@@ -13,6 +13,7 @@ from models.GetSubPixel import GetSubPixels
 from models.OpenCVCalibGivenPoints import CalibGivenPoints
 from settings.settings import *
 from utils.utils import *
+import cv2
 
 class Calib(object):
     """Perform Calibration
@@ -27,10 +28,10 @@ class Calib(object):
         self.chessboardsize = chessboardsize
         self.calibtor = CalibGivenPoints(chessboardsize, '', 40)
 
-        self.size = 480
+        self.size = img_size
         self.img_size = img_size
-        self.x_ratio = self.size / img_size[0]
-        self.y_ratio = self.size / img_size[1]
+        self.x_ratio = self.size[0] / img_size[0]
+        self.y_ratio = self.size[1] / img_size[1]
         self.corner_num = corner_num
         self.img_path = r''
         self.log_file_path = os.path.join(LOGFILEPATH, 'calib_'+log_name+'.txt')
@@ -67,8 +68,8 @@ class Calib(object):
             if s_err > ORT:
                 pass
             else:
-                gt = os.path.join(ref_path, name)
-                self.subpixel_exactor.load_gt_4_calibsort(gt)
+                # gt = os.path.join(ref_path, name)
+                # self.subpixel_exactor.load_gt_4_calibsort(gt)
                 if sort_mod == 'gt':
                     cs = self.subpixel_exactor.sort_by_gt_data(show_flag=False)
                     cs = self.subpixel_exactor.collineation_refinement(cs)
@@ -76,13 +77,13 @@ class Calib(object):
                     print('corner error=', err)
                     corner_flag = True
                 elif sort_mod == 'corner':
-                    img_name = os.path.join(img_path, name.split('.')[0]+".jpg")
+                    img_name = os.path.join(img_path, name.split('.')[0]+".png")
                     img = cv2.imread(img_name)
                     self.subpixel_exactor.opencv_find_corner(img)
                     cs = self.subpixel_exactor.sort_by_corners()
                     cs = self.subpixel_exactor.collineation_refinement(cs)
-                    err = self.subpixel_exactor.cal_err()
-                    print('corner error=', err)
+                    # err = self.subpixel_exactor.cal_err()
+                    # print('corner error=', err)
                     corner_flag = True
                 elif sort_mod == 'OR':
                     img_name = os.path.join(img_path, name.split('.')[0]+".jpg")
@@ -129,10 +130,38 @@ class Calib(object):
         for i, heatmap in enumerate(heatmaps):
             flag, cs = self.get_coor_from_heatmap(heatmap, heatmap_names[i], sort_mod, ORT, ref_path, img_path)
             if flag:
+                for point in cs:
+                    point[0], point[1] = point[1], point[0]
+            if flag:
                 corners.append(cs.astype('float32'))
                 corner_names.append(heatmap_names[i])
             else:
                 img_num -= 1
+            original_image_path = os.path.join(img_path, heatmap_names[i].split('.')[0] + ".png")
+            print(original_image_path)
+            original_image = cv2.imread(original_image_path)
+            original_image_to_display = original_image.copy()
+            gray_original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+            retval_sb, corners_sb = cv2.findChessboardCorners(gray_original_image, (11, 8))
+            if retval_sb:
+                point_radius_sb = 1
+                point_color_sb = (255, 0, 0)
+                for pt_idx, point_sb in enumerate(corners_sb.astype(int)):
+                    px, py = point_sb[0][0], point_sb[0][1]
+                    # print("px:", px, type(px), px.shape if hasattr(px, 'shape') else "Not an array")
+                    # print("py:", py, type(py), py.shape if hasattr(py, 'shape') else "Not an array")
+                    cv2.circle(original_image_to_display, (int(px), int(py)), point_radius_sb, point_color_sb, -1)
+                    cv2.putText(original_image_to_display, str(pt_idx), tuple((px + 5, py - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 1)
+            else:
+                print("Cannot find any chessboard corner by OPENCV")
+            if flag:
+                for pt_idx, point_sb in enumerate(cs.astype(int)):
+                    # print(point_sb)
+                    px, py = point_sb[0], point_sb[1]
+                    cv2.circle(original_image_to_display, (int(px), int(py)), point_radius_sb, (0, 0, 255), -1)
+                    cv2.putText(original_image_to_display, str(pt_idx), tuple((px + 5, py - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1)
+                full_path = os.path.join(img_path, heatmap_names[i].split('.')[0] + "_stack.png")
+                cv2.imwrite(full_path, original_image_to_display)
         self.calibtor.img_number = img_num
         self.calibtor.get_o_points()
         print(f'Calibration with {img_num} images.')
@@ -175,7 +204,7 @@ class Calib(object):
         
         print(f'save subpixel corners in {save_path}')
 
-    def calib_by_RANSAC_practical(self, heatmap_folder, subpixel_path, max_iter_num=100, least_pose_num=20, outlier_threshold=0.8, inlier_threshold=2/3, sort_mod='gt', ORT=20, ref_path=r'', ref_mod='gt',save_flag=False, draw_flag=False):
+    def calib_by_RANSAC_practical(self, heatmap_folder, subpixel_path, max_iter_num=100, least_pose_num=20, outlier_threshold=0.8, inlier_threshold=2/3, sort_mod='corner', ORT=20, ref_path=r'', ref_mod='gt',save_flag=False, draw_flag=False):
         """
         Args:
             least_pose_num : use <=* images to calib every time

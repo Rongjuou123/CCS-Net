@@ -44,7 +44,7 @@ class ChessboardDetectDataset(Dataset):
     def preprocess(self, pil_img, norm_size):
         """resize & expand dim on 2 
         """
-        pil_img = pil_img.resize((norm_size, norm_size))
+        pil_img = pil_img.resize((norm_size[0], norm_size[1]))
 
         img_nd = np.array(pil_img)
 
@@ -92,6 +92,9 @@ class ChessboardDetectDataset(Dataset):
         img = img.convert('L')
         heatmap = np.load(heatmap_name)
         # print(np.max(heatmap))
+        # heatmap = np.resize(heatmap, (2464, 2056))
+        # heatmap = np.resize(heatmap, 2056 * 2464)
+        heatmap = cv2.resize(heatmap, (2056, 2464))
 
 
         assert img.size == heatmap.shape, \

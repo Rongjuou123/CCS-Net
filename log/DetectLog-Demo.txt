@@ -1,0 +1,91 @@
+2025-08-01 14:40:42 - root - INFO: - load imgs from demo_data\chessboard\left1\img
+2025-08-01 14:40:42 - root - INFO: - load 16 imgs totally.
+2025-08-01 14:40:42 - root - INFO: - load img from demo_data\chessboard\left1\img\0.png
+2025-08-01 14:40:42 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:42 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:42 - root - INFO: - load UNet
+2025-08-01 14:40:44 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:44 - root - INFO: - load img from demo_data\chessboard\left1\img\1.png
+2025-08-01 14:40:44 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:44 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:44 - root - INFO: - load UNet
+2025-08-01 14:40:44 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:45 - root - INFO: - load img from demo_data\chessboard\left1\img\10.png
+2025-08-01 14:40:45 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:45 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:45 - root - INFO: - load UNet
+2025-08-01 14:40:45 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:45 - root - INFO: - load img from demo_data\chessboard\left1\img\11.png
+2025-08-01 14:40:45 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:45 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:46 - root - INFO: - load UNet
+2025-08-01 14:40:46 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:46 - root - INFO: - load img from demo_data\chessboard\left1\img\12.png
+2025-08-01 14:40:46 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:46 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:47 - root - INFO: - load UNet
+2025-08-01 14:40:47 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:47 - root - INFO: - load img from demo_data\chessboard\left1\img\13.png
+2025-08-01 14:40:47 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:47 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:47 - root - INFO: - load UNet
+2025-08-01 14:40:48 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:48 - root - INFO: - load img from demo_data\chessboard\left1\img\14.png
+2025-08-01 14:40:48 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:48 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:48 - root - INFO: - load UNet
+2025-08-01 14:40:49 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:49 - root - INFO: - load img from demo_data\chessboard\left1\img\2.png
+2025-08-01 14:40:49 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:49 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:49 - root - INFO: - load UNet
+2025-08-01 14:40:50 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:50 - root - INFO: - load img from demo_data\chessboard\left1\img\20.png
+2025-08-01 14:40:50 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:50 - PIL.PngImagePlugin - DEBUG: - STREAM b'sRGB' 41 1
+2025-08-01 14:40:50 - PIL.PngImagePlugin - DEBUG: - STREAM b'gAMA' 54 4
+2025-08-01 14:40:50 - PIL.PngImagePlugin - DEBUG: - STREAM b'pHYs' 70 9
+2025-08-01 14:40:50 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 91 65445
+2025-08-01 14:40:50 - root - INFO: - load UNet
+2025-08-01 14:40:51 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:51 - root - INFO: - load img from demo_data\chessboard\left1\img\3.png
+2025-08-01 14:40:51 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:51 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:51 - root - INFO: - load UNet
+2025-08-01 14:40:52 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:52 - root - INFO: - load img from demo_data\chessboard\left1\img\4.png
+2025-08-01 14:40:52 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:52 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:52 - root - INFO: - load UNet
+2025-08-01 14:40:52 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:53 - root - INFO: - load img from demo_data\chessboard\left1\img\5.png
+2025-08-01 14:40:53 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:53 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:53 - root - INFO: - load UNet
+2025-08-01 14:40:53 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:53 - root - INFO: - load img from demo_data\chessboard\left1\img\6.png
+2025-08-01 14:40:53 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:53 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:54 - root - INFO: - load UNet
+2025-08-01 14:40:54 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:54 - root - INFO: - load img from demo_data\chessboard\left1\img\7.png
+2025-08-01 14:40:54 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:54 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:55 - root - INFO: - load UNet
+2025-08-01 14:40:55 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:55 - root - INFO: - load img from demo_data\chessboard\left1\img\8.png
+2025-08-01 14:40:55 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:55 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:55 - root - INFO: - load UNet
+2025-08-01 14:40:56 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:40:56 - root - INFO: - load img from demo_data\chessboard\left1\img\9.png
+2025-08-01 14:40:56 - PIL.PngImagePlugin - DEBUG: - STREAM b'IHDR' 16 13
+2025-08-01 14:40:56 - PIL.PngImagePlugin - DEBUG: - STREAM b'IDAT' 41 8192
+2025-08-01 14:40:56 - root - INFO: - load UNet
+2025-08-01 14:40:57 - root - INFO: - Saved in demo_data\chessboard\left1\DetectRes
+2025-08-01 14:41:26 - root - INFO: - Reject Image 10.npy with candidates=43
+2025-08-01 14:42:04 - root - INFO: - Reject Image 13.npy with candidates=85
+2025-08-01 14:43:08 - root - INFO: - Reject Image 4.npy with candidates=87
+2025-08-01 14:43:50 - root - INFO: - Reject Image 7.npy with candidates=68
+2025-08-01 14:43:58 - root - INFO: - Reject Image 8.npy with candidates=69
+2025-08-01 14:44:09 - root - INFO: - Reject Image 9.npy with candidates=82

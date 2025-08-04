@@ -162,7 +162,7 @@ class CalibGivenPoints(object):
                                 [0,fy,py], 
                                 [0,0,1]])
         flag = cv2.CALIB_USE_INTRINSIC_GUESS + cv2.CALIB_FIX_PRINCIPAL_POINT + cv2.CALIB_FIX_FOCAL_LENGTH 
-        ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(self.object_points, self.img_points, (480, 480),cameraMatrix, None, flags= flag)
+        ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(self.object_points, self.img_points, (2464, 2056),cameraMatrix, None, flags= flag)
         return ret, mtx, dist, rvecs, tvecs
 
     def call_re_projection_errors(self, rvecs, tvecs, mtx, dist):

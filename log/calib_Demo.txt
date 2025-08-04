@@ -1,0 +1,6 @@
+2025-08-01 14:41:26 - root - INFO: - Reject Image 10.npy with candidates=43
+2025-08-01 14:42:04 - root - INFO: - Reject Image 13.npy with candidates=85
+2025-08-01 14:43:08 - root - INFO: - Reject Image 4.npy with candidates=87
+2025-08-01 14:43:50 - root - INFO: - Reject Image 7.npy with candidates=68
+2025-08-01 14:43:58 - root - INFO: - Reject Image 8.npy with candidates=69
+2025-08-01 14:44:09 - root - INFO: - Reject Image 9.npy with candidates=82

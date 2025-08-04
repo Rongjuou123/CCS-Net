@@ -1,0 +1,140 @@
+Epoch 1/20:  10%|▍    | 176/1800 [00:07<01:01, 26.35img/s, loss (batch)=0.00341]2025-07-07 18:27:45 - root - INFO: - Validation MSE loss: 0.0024065097677521408
+2025-07-07 18:27:45 - root - INFO: - Validation MSE loss: 0.0024065097677521408
+Epoch 1/20:  20%|▉    | 352/1800 [00:19<00:57, 24.98img/s, loss (batch)=0.00231]2025-07-07 18:27:57 - root - INFO: - Validation MSE loss: 0.0007248488012313222
+2025-07-07 18:27:57 - root - INFO: - Validation MSE loss: 0.0007248488012313222
+Epoch 1/20:  29%|█▍   | 528/1800 [00:32<00:51, 24.58img/s, loss (batch)=0.00169]2025-07-07 18:28:09 - root - INFO: - Validation MSE loss: 0.0003570371773093939
+2025-07-07 18:28:09 - root - INFO: - Validation MSE loss: 0.0003570371773093939
+Epoch 1/20:  39%|█▉   | 704/1800 [00:45<00:53, 20.67img/s, loss (batch)=0.00146]2025-07-07 18:28:23 - root - INFO: - Validation MSE loss: 0.0002733303178198791
+2025-07-07 18:28:23 - root - INFO: - Validation MSE loss: 0.0002733303178198791
+Epoch 1/20:  49%|██▍  | 880/1800 [00:57<00:38, 24.11img/s, loss (batch)=0.00136]2025-07-07 18:28:35 - root - INFO: - Validation MSE loss: 0.00017163184626648823
+2025-07-07 18:28:35 - root - INFO: - Validation MSE loss: 0.00017163184626648823
+Epoch 1/20:  59%|██▎ | 1056/1800 [01:09<00:30, 24.69img/s, loss (batch)=0.00138]2025-07-07 18:28:47 - root - INFO: - Validation MSE loss: 0.00016104674553692652
+2025-07-07 18:28:47 - root - INFO: - Validation MSE loss: 0.00016104674553692652
+Epoch 1/20:  68%|██▋ | 1232/1800 [01:21<00:23, 24.57img/s, loss (batch)=0.00113]2025-07-07 18:28:58 - root - INFO: - Validation MSE loss: 0.00016038743099973848
+2025-07-07 18:28:58 - root - INFO: - Validation MSE loss: 0.00016038743099973848
+Epoch 1/20:  78%|███▉ | 1408/1800 [01:33<00:15, 24.68img/s, loss (batch)=0.0013]2025-07-07 18:29:10 - root - INFO: - Validation MSE loss: 0.00012815049194614403
+2025-07-07 18:29:10 - root - INFO: - Validation MSE loss: 0.00012815049194614403
+Epoch 1/20:  88%|███▌| 1584/1800 [01:45<00:08, 24.73img/s, loss (batch)=0.00121]2025-07-07 18:29:23 - root - INFO: - Validation MSE loss: 0.0001441233944206033
+2025-07-07 18:29:23 - root - INFO: - Validation MSE loss: 0.0001441233944206033
+Epoch 1/20:  98%|███▉| 1760/1800 [01:57<00:01, 24.94img/s, loss (batch)=0.00112]2025-07-07 18:29:34 - root - INFO: - Validation MSE loss: 0.00012155990528602463
+2025-07-07 18:29:34 - root - INFO: - Validation MSE loss: 0.00012155990528602463
+Epoch 1/20: 100%|███▉| 1792/1800 [02:04<00:00, 14.43img/s, loss (batch)=0.00118]
+2025-07-07 18:29:38 - root - INFO: - Checkpoint 1 saved !
+2025-07-07 18:29:38 - root - INFO: - Checkpoint 1 saved !
+Epoch 2/20:   8%|▍    | 144/1800 [00:05<01:01, 27.12img/s, loss (batch)=0.00123]2025-07-07 18:29:47 - root - INFO: - Validation MSE loss: 0.00012712297454224122
+2025-07-07 18:29:47 - root - INFO: - Validation MSE loss: 0.00012712297454224122
+Epoch 2/20:  18%|▉    | 320/1800 [00:17<00:59, 24.72img/s, loss (batch)=0.00112]2025-07-07 18:29:58 - root - INFO: - Validation MSE loss: 0.00010875077835711029
+2025-07-07 18:29:58 - root - INFO: - Validation MSE loss: 0.00010875077835711029
+Epoch 2/20:  28%|█▍   | 496/1800 [00:28<00:52, 24.69img/s, loss (batch)=0.00114]2025-07-07 18:30:12 - root - INFO: - Validation MSE loss: 9.41861180763226e-05
+2025-07-07 18:30:12 - root - INFO: - Validation MSE loss: 9.41861180763226e-05
+Epoch 2/20:  37%|██▏   | 672/1800 [00:42<00:47, 23.85img/s, loss (batch)=0.0012]2025-07-07 18:30:26 - root - INFO: - Validation MSE loss: 9.171961452617931e-05
+2025-07-07 18:30:26 - root - INFO: - Validation MSE loss: 9.171961452617931e-05
+Epoch 2/20:  47%|██▎  | 848/1800 [00:57<00:39, 23.82img/s, loss (batch)=0.00111]2025-07-07 18:30:40 - root - INFO: - Validation MSE loss: 9.27541059354553e-05
+2025-07-07 18:30:40 - root - INFO: - Validation MSE loss: 9.27541059354553e-05
+Epoch 2/20:  57%|██▎ | 1024/1800 [01:11<00:32, 23.97img/s, loss (batch)=0.00106]2025-07-07 18:30:54 - root - INFO: - Validation MSE loss: 9.708060436726858e-05
+2025-07-07 18:30:54 - root - INFO: - Validation MSE loss: 9.708060436726858e-05
+Epoch 2/20:  67%|████  | 1200/1800 [01:25<00:25, 23.84img/s, loss (batch)=0.001]2025-07-07 18:31:08 - root - INFO: - Validation MSE loss: 0.00011566176605507887
+2025-07-07 18:31:08 - root - INFO: - Validation MSE loss: 0.00011566176605507887
+Epoch 2/20:  76%|██▎| 1376/1800 [01:39<00:17, 24.00img/s, loss (batch)=0.000957]2025-07-07 18:31:22 - root - INFO: - Validation MSE loss: 8.476783417184681e-05
+2025-07-07 18:31:22 - root - INFO: - Validation MSE loss: 8.476783417184681e-05
+Epoch 2/20:  86%|██▌| 1552/1800 [01:53<00:10, 24.06img/s, loss (batch)=0.000922]2025-07-07 18:31:36 - root - INFO: - Validation MSE loss: 8.15346005159275e-05
+2025-07-07 18:31:36 - root - INFO: - Validation MSE loss: 8.15346005159275e-05
+Epoch 2/20:  96%|████▊| 1728/1800 [02:07<00:02, 24.19img/s, loss (batch)=0.0011]2025-07-07 18:31:50 - root - INFO: - Validation MSE loss: 8.261663424491417e-05
+2025-07-07 18:31:50 - root - INFO: - Validation MSE loss: 8.261663424491417e-05
+Epoch 2/20: 100%|█████▉| 1792/1800 [02:17<00:00, 13.05img/s, loss (batch)=0.001]
+2025-07-07 18:31:56 - root - INFO: - Checkpoint 2 saved !
+2025-07-07 18:31:56 - root - INFO: - Checkpoint 2 saved !
+Epoch 3/20:   6%|▎    | 112/1800 [00:04<01:07, 24.96img/s, loss (batch)=0.00106]2025-07-07 18:32:05 - root - INFO: - Validation MSE loss: 8.20890448570329e-05
+2025-07-07 18:32:05 - root - INFO: - Validation MSE loss: 8.20890448570329e-05
+Epoch 3/20:  16%|▋   | 288/1800 [00:18<01:02, 24.06img/s, loss (batch)=0.000929]2025-07-07 18:32:19 - root - INFO: - Validation MSE loss: 8.119009786848135e-05
+2025-07-07 18:32:19 - root - INFO: - Validation MSE loss: 8.119009786848135e-05
+Epoch 3/20:  26%|█▎   | 464/1800 [00:32<00:55, 24.24img/s, loss (batch)=0.00097]2025-07-07 18:32:34 - root - INFO: - Validation MSE loss: 8.155890827765688e-05
+2025-07-07 18:32:34 - root - INFO: - Validation MSE loss: 8.155890827765688e-05
+Epoch 3/20:  36%|█▊   | 640/1800 [00:46<00:47, 24.22img/s, loss (batch)=0.00109]2025-07-07 18:32:47 - root - INFO: - Validation MSE loss: 8.223468830692582e-05
+2025-07-07 18:32:47 - root - INFO: - Validation MSE loss: 8.223468830692582e-05
+Epoch 3/20:  45%|█▊  | 816/1800 [01:00<00:41, 23.90img/s, loss (batch)=0.000976]2025-07-07 18:33:01 - root - INFO: - Validation MSE loss: 8.18220269138692e-05
+2025-07-07 18:33:01 - root - INFO: - Validation MSE loss: 8.18220269138692e-05
+Epoch 3/20:  55%|██▊  | 992/1800 [01:14<00:33, 23.90img/s, loss (batch)=0.00109]2025-07-07 18:33:15 - root - INFO: - Validation MSE loss: 8.12573271105066e-05
+2025-07-07 18:33:15 - root - INFO: - Validation MSE loss: 8.12573271105066e-05
+Epoch 3/20:  65%|█▉ | 1168/1800 [01:28<00:25, 24.50img/s, loss (batch)=0.000995]2025-07-07 18:33:27 - root - INFO: - Validation MSE loss: 8.077519487414975e-05
+2025-07-07 18:33:27 - root - INFO: - Validation MSE loss: 8.077519487414975e-05
+Epoch 3/20:  75%|██▏| 1344/1800 [01:39<00:18, 24.90img/s, loss (batch)=0.000944]2025-07-07 18:33:39 - root - INFO: - Validation MSE loss: 8.119086245036063e-05
+2025-07-07 18:33:39 - root - INFO: - Validation MSE loss: 8.119086245036063e-05
+Epoch 3/20:  84%|██▌| 1520/1800 [01:51<00:11, 24.92img/s, loss (batch)=0.000972]2025-07-07 18:33:51 - root - INFO: - Validation MSE loss: 8.069416738483899e-05
+2025-07-07 18:33:51 - root - INFO: - Validation MSE loss: 8.069416738483899e-05
+Epoch 3/20:  94%|██▊| 1696/1800 [02:03<00:04, 24.83img/s, loss (batch)=0.000942]2025-07-07 18:34:03 - root - INFO: - Validation MSE loss: 8.178605033511606e-05
+2025-07-07 18:34:03 - root - INFO: - Validation MSE loss: 8.178605033511606e-05
+Epoch 3/20: 100%|██▉| 1792/1800 [02:12<00:00, 13.49img/s, loss (batch)=0.000997]
+2025-07-07 18:34:09 - root - INFO: - Checkpoint 3 saved !
+2025-07-07 18:34:09 - root - INFO: - Checkpoint 3 saved !
+Epoch 4/20:   4%|▎     | 80/1800 [00:02<01:01, 27.97img/s, loss (batch)=0.00108]2025-07-07 18:34:15 - root - INFO: - Validation MSE loss: 8.021994835871737e-05
+2025-07-07 18:34:15 - root - INFO: - Validation MSE loss: 8.021994835871737e-05
+Epoch 4/20:  14%|▌   | 256/1800 [00:14<01:02, 24.87img/s, loss (batch)=0.000946]2025-07-07 18:34:27 - root - INFO: - Validation MSE loss: 8.089601215033326e-05
+2025-07-07 18:34:27 - root - INFO: - Validation MSE loss: 8.089601215033326e-05
+Epoch 4/20:  24%|▉   | 432/1800 [00:26<00:55, 24.79img/s, loss (batch)=0.000998]2025-07-07 18:34:39 - root - INFO: - Validation MSE loss: 8.105393195971071e-05
+2025-07-07 18:34:39 - root - INFO: - Validation MSE loss: 8.105393195971071e-05
+Epoch 4/20:  34%|█▎  | 608/1800 [00:38<00:47, 24.89img/s, loss (batch)=0.000983]2025-07-07 18:34:51 - root - INFO: - Validation MSE loss: 8.107046111642073e-05
+2025-07-07 18:34:51 - root - INFO: - Validation MSE loss: 8.107046111642073e-05
+Epoch 4/20:  44%|█▋  | 784/1800 [00:50<00:40, 24.89img/s, loss (batch)=0.000894]2025-07-07 18:35:03 - root - INFO: - Validation MSE loss: 8.10240738549813e-05
+2025-07-07 18:35:03 - root - INFO: - Validation MSE loss: 8.10240738549813e-05
+Epoch 4/20:  53%|██▋  | 960/1800 [01:02<00:33, 24.82img/s, loss (batch)=0.00097]2025-07-07 18:35:15 - root - INFO: - Validation MSE loss: 8.114254827281304e-05
+2025-07-07 18:35:15 - root - INFO: - Validation MSE loss: 8.114254827281304e-05
+Epoch 4/20:  63%|██▌ | 1136/1800 [01:13<00:26, 24.84img/s, loss (batch)=0.00101]2025-07-07 18:35:27 - root - INFO: - Validation MSE loss: 8.066761317119624e-05
+2025-07-07 18:35:27 - root - INFO: - Validation MSE loss: 8.066761317119624e-05
+Epoch 4/20:  73%|██▏| 1312/1800 [01:25<00:19, 24.86img/s, loss (batch)=0.000953]2025-07-07 18:35:39 - root - INFO: - Validation MSE loss: 8.055357041788132e-05
+2025-07-07 18:35:39 - root - INFO: - Validation MSE loss: 8.055357041788132e-05
+Epoch 4/20:  83%|██▍| 1488/1800 [01:37<00:12, 24.84img/s, loss (batch)=0.000944]2025-07-07 18:35:50 - root - INFO: - Validation MSE loss: 8.060262734943535e-05
+2025-07-07 18:35:50 - root - INFO: - Validation MSE loss: 8.060262734943535e-05
+Epoch 4/20:  92%|███▋| 1664/1800 [01:49<00:05, 24.92img/s, loss (batch)=0.00105]2025-07-07 18:36:02 - root - INFO: - Validation MSE loss: 8.07132031089471e-05
+2025-07-07 18:36:02 - root - INFO: - Validation MSE loss: 8.07132031089471e-05
+Epoch 4/20: 100%|██▉| 1792/1800 [01:59<00:00, 14.97img/s, loss (batch)=0.000912]
+2025-07-07 18:36:09 - root - INFO: - Checkpoint 4 saved !
+2025-07-07 18:36:09 - root - INFO: - Checkpoint 4 saved !
+Epoch 5/20:   3%|▏    | 48/1800 [00:01<00:57, 30.26img/s, loss (batch)=0.000938]2025-07-07 18:36:14 - root - INFO: - Validation MSE loss: 8.097368602951367e-05
+2025-07-07 18:36:14 - root - INFO: - Validation MSE loss: 8.097368602951367e-05
+Epoch 5/20:  12%|▌    | 224/1800 [00:13<01:03, 24.93img/s, loss (batch)=0.00105]2025-07-07 18:36:26 - root - INFO: - Validation MSE loss: 8.122235764555323e-05
+2025-07-07 18:36:26 - root - INFO: - Validation MSE loss: 8.122235764555323e-05
+Epoch 5/20:  22%|▉   | 400/1800 [00:25<00:56, 24.91img/s, loss (batch)=0.000943]2025-07-07 18:36:38 - root - INFO: - Validation MSE loss: 8.089527303430562e-05
+2025-07-07 18:36:38 - root - INFO: - Validation MSE loss: 8.089527303430562e-05
+Epoch 5/20:  32%|█▎  | 576/1800 [00:36<00:49, 24.91img/s, loss (batch)=0.000997]2025-07-07 18:36:50 - root - INFO: - Validation MSE loss: 8.129618133049614e-05
+2025-07-07 18:36:50 - root - INFO: - Validation MSE loss: 8.129618133049614e-05
+Epoch 5/20:  42%|██   | 752/1800 [00:48<00:42, 24.88img/s, loss (batch)=0.00102]2025-07-07 18:37:01 - root - INFO: - Validation MSE loss: 8.072585539290837e-05
+2025-07-07 18:37:01 - root - INFO: - Validation MSE loss: 8.072585539290837e-05
+Epoch 5/20:  52%|███▌   | 928/1800 [01:00<00:35, 24.88img/s, loss (batch)=0.001]2025-07-07 18:37:13 - root - INFO: - Validation MSE loss: 8.068776696745772e-05
+2025-07-07 18:37:13 - root - INFO: - Validation MSE loss: 8.068776696745772e-05
+Epoch 5/20:  61%|██▍ | 1104/1800 [01:12<00:27, 24.92img/s, loss (batch)=0.00104]2025-07-07 18:37:25 - root - INFO: - Validation MSE loss: 8.074220446966744e-05
+2025-07-07 18:37:25 - root - INFO: - Validation MSE loss: 8.074220446966744e-05
+Epoch 5/20:  71%|██▏| 1280/1800 [01:24<00:20, 24.88img/s, loss (batch)=0.000969]2025-07-07 18:37:37 - root - INFO: - Validation MSE loss: 8.040268039621878e-05
+2025-07-07 18:37:37 - root - INFO: - Validation MSE loss: 8.040268039621878e-05
+Epoch 5/20:  81%|██▍| 1456/1800 [01:36<00:13, 24.91img/s, loss (batch)=0.000929]2025-07-07 18:37:49 - root - INFO: - Validation MSE loss: 8.059063596495737e-05
+2025-07-07 18:37:49 - root - INFO: - Validation MSE loss: 8.059063596495737e-05
+Epoch 5/20:  91%|██▋| 1632/1800 [01:48<00:06, 24.74img/s, loss (batch)=0.000964]2025-07-07 18:38:01 - root - INFO: - Validation MSE loss: 8.07109906115026e-05
+2025-07-07 18:38:01 - root - INFO: - Validation MSE loss: 8.07109906115026e-05
+Epoch 5/20: 100%|██▉| 1792/1800 [01:59<00:00, 14.95img/s, loss (batch)=0.000996]
+2025-07-07 18:38:10 - root - INFO: - Checkpoint 5 saved !
+2025-07-07 18:38:10 - root - INFO: - Checkpoint 5 saved !
+Epoch 6/20:   1%|     | 16/1800 [00:00<00:32, 54.66img/s, loss (batch)=0.000912]2025-07-07 18:38:13 - root - INFO: - Validation MSE loss: 8.06475860978632e-05
+2025-07-07 18:38:13 - root - INFO: - Validation MSE loss: 8.06475860978632e-05
+Epoch 6/20:  11%|▍   | 192/1800 [00:12<01:04, 25.02img/s, loss (batch)=0.000984]2025-07-07 18:38:25 - root - INFO: - Validation MSE loss: 8.06913467386039e-05
+2025-07-07 18:38:25 - root - INFO: - Validation MSE loss: 8.06913467386039e-05
+Epoch 6/20:  20%|▊   | 368/1800 [00:24<00:57, 24.88img/s, loss (batch)=0.000945]2025-07-07 18:38:37 - root - INFO: - Validation MSE loss: 8.122876473256231e-05
+2025-07-07 18:38:37 - root - INFO: - Validation MSE loss: 8.122876473256231e-05
+Epoch 6/20:  30%|██     | 544/1800 [00:36<00:50, 24.89img/s, loss (batch)=0.001]2025-07-07 18:38:49 - root - INFO: - Validation MSE loss: 8.066406796084873e-05
+2025-07-07 18:38:49 - root - INFO: - Validation MSE loss: 8.066406796084873e-05
+Epoch 6/20:  40%|█▌  | 720/1800 [00:47<00:43, 24.91img/s, loss (batch)=0.000889]2025-07-07 18:39:01 - root - INFO: - Validation MSE loss: 8.063643448015985e-05
+2025-07-07 18:39:01 - root - INFO: - Validation MSE loss: 8.063643448015985e-05
+Epoch 6/20:  50%|███▍   | 896/1800 [00:59<00:36, 24.89img/s, loss (batch)=0.001]2025-07-07 18:39:13 - root - INFO: - Validation MSE loss: 8.034399009678357e-05
+2025-07-07 18:39:13 - root - INFO: - Validation MSE loss: 8.034399009678357e-05
+Epoch 6/20:  60%|█▊ | 1072/1800 [01:11<00:29, 24.84img/s, loss (batch)=0.000982]2025-07-07 18:39:25 - root - INFO: - Validation MSE loss: 8.053486756883406e-05
+2025-07-07 18:39:25 - root - INFO: - Validation MSE loss: 8.053486756883406e-05
+Epoch 6/20:  69%|██ | 1248/1800 [01:23<00:22, 24.92img/s, loss (batch)=0.000932]2025-07-07 18:39:36 - root - INFO: - Validation MSE loss: 8.107402451666228e-05
+2025-07-07 18:39:36 - root - INFO: - Validation MSE loss: 8.107402451666228e-05
+Epoch 6/20:  79%|███▏| 1424/1800 [01:35<00:15, 24.93img/s, loss (batch)=0.00109]2025-07-07 18:39:48 - root - INFO: - Validation MSE loss: 8.056410842982586e-05
+2025-07-07 18:39:48 - root - INFO: - Validation MSE loss: 8.056410842982586e-05
+Epoch 6/20:  89%|██▋| 1600/1800 [01:47<00:08, 24.92img/s, loss (batch)=0.000923]2025-07-07 18:40:00 - root - INFO: - Validation MSE loss: 8.091523219870093e-05
+2025-07-07 18:40:00 - root - INFO: - Validation MSE loss: 8.091523219870093e-05
+Epoch 6/20:  99%|███▉| 1776/1800 [01:58<00:00, 24.95img/s, loss (batch)=0.00109]2025-07-07 18:40:12 - root - INFO: - Validation MSE loss: 8.140757320992027e-05
+2025-07-07 18:40:12 - root - INFO: - Validation MSE loss: 8.140757320992027e-05
+Epoch 6/20: 100%|███▉| 1792/1800 [02:04<00:00, 14.35img/s, loss (batch)=0.00101]
+2025-07-07 18:40:15 - root - INFO: - Checkpoint 6 saved !
+2025-07-07 18:40:15 - root - INFO: - Checkpoint 6 saved !

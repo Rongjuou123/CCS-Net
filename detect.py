@@ -30,8 +30,8 @@ class Detect(object):
         self.checkpoint_path = r''
 
         self.model_name = 'UNet'
-        self.size = (480,480)
-        self.norm_size = 480
+        self.size = (2464,2056)
+        self.norm_size = (2464,2056)
 
     def __img_preprocess(self, pil_img, device):
         """
@@ -108,7 +108,7 @@ class Detect(object):
         """
         self.img_path = folderpath
         logging.info(f'load imgs from {folderpath}')
-        ori_img_list = glob.glob(os.path.join(self.img_path, '*.jpg'))
+        ori_img_list = glob.glob(os.path.join(self.img_path, '*.jpg')) + glob.glob(os.path.join(self.img_path, '*.png'))
         ori_img_list.sort(key=lambda i: int(re.search(r'(\d+)', i).group()))
         # ori_img_list.sort(key=lambda x: int(x.split('\\')[-1].split('.')[0]))
 
@@ -210,13 +210,13 @@ class Detect(object):
         # h2 = h2*(h2>0.9)
 
         res = 0
-        meshs = np.meshgrid(self.norm_size, self.norm_size)
+        meshs = np.meshgrid(self.norm_size[0], self.norm_size[1])
 
         mesh_x = np.array(meshs[0]) + 1
         mesh_y = np.array(meshs[1]) + 1
 
 
-        res += np.sum(np.sum(np.abs(h1*mesh_x - h2*mesh_x))) / self.norm_size**2
+        res += np.sum(np.sum(np.abs(h1*mesh_x - h2*mesh_x))) / self.norm_size[0]*self.norm_size[1]
         # res += np.sum(np.sum(np.abs(h1*mesh_y - h2*mesh_y))) #/ self.norm_size**2
 
         return res

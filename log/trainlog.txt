@@ -1,0 +1,150 @@
+2025-07-31 10:39:20 - root - INFO: - Using device cuda
+2025-07-31 10:39:20 - root - INFO: - Load 7651 imgs and 7651 heatmaps from C:\Users\admin\Desktop\CCS-New\CCS\train_dataset\train_left_test33.
+2025-07-31 10:39:20 - root - INFO: - Starting training:
+        Epochs:          40
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   6886
+        Validation size: 765
+        Checkpoints:     True
+        Device:          cuda
+        Input size:  [2056, 2464]
+        Model:  UNet
+        loss mod: l2
+        l1weight: 0.5
+        l2weight: 0.5
+    
+2025-07-31 10:53:38 - root - INFO: - Validation MSE loss: 0.0007189552222638774
+2025-07-31 11:07:35 - root - INFO: - Validation MSE loss: 0.00015551297454330067
+2025-07-31 11:21:32 - root - INFO: - Validation MSE loss: 0.00011066540689224734
+2025-07-31 11:35:30 - root - INFO: - Validation MSE loss: 0.0001053288765689145
+2025-07-31 11:49:27 - root - INFO: - Validation MSE loss: 7.009440385659485e-05
+2025-07-31 12:03:24 - root - INFO: - Validation MSE loss: 5.400410135217837e-05
+2025-07-31 12:17:21 - root - INFO: - Validation MSE loss: 9.372263505616989e-05
+2025-07-31 12:31:17 - root - INFO: - Validation MSE loss: 0.0018264322631818919
+2025-07-31 12:45:15 - root - INFO: - Validation MSE loss: 9.60497502234705e-05
+2025-07-31 12:59:11 - root - INFO: - Validation MSE loss: 7.142427233036846e-05
+2025-07-31 12:59:17 - root - INFO: - Created checkpoint directory
+2025-07-31 12:59:18 - root - INFO: - Checkpoint 1 saved !
+2025-07-31 13:13:08 - root - INFO: - Validation MSE loss: 6.429599468343095e-05
+2025-07-31 13:27:04 - root - INFO: - Validation MSE loss: 6.064657483304972e-05
+2025-07-31 13:41:00 - root - INFO: - Validation MSE loss: 4.3707700577072625e-05
+2025-07-31 13:54:57 - root - INFO: - Validation MSE loss: 5.6835327338489316e-05
+2025-07-31 14:08:54 - root - INFO: - Validation MSE loss: 4.460619796732109e-05
+2025-07-31 14:22:51 - root - INFO: - Validation MSE loss: 5.8230184786344324e-05
+2025-07-31 14:36:54 - root - INFO: - Validation MSE loss: 5.165003321130796e-05
+2025-07-31 14:50:54 - root - INFO: - Validation MSE loss: 5.062240716618249e-05
+2025-07-31 15:04:55 - root - INFO: - Validation MSE loss: 5.448237925401628e-05
+2025-07-31 15:18:54 - root - INFO: - Validation MSE loss: 5.569576213412231e-05
+2025-07-31 15:19:05 - root - INFO: - Checkpoint 2 saved !
+2025-07-31 15:32:52 - root - INFO: - Validation MSE loss: 3.919305417261937e-05
+2025-07-31 15:46:55 - root - INFO: - Validation MSE loss: 5.1601673121516726e-05
+2025-07-31 16:00:53 - root - INFO: - Validation MSE loss: 5.7226721588342434e-05
+2025-07-31 16:14:57 - root - INFO: - Validation MSE loss: 3.984840588891767e-05
+2025-07-31 16:28:59 - root - INFO: - Validation MSE loss: 4.178891975041349e-05
+2025-07-31 16:42:56 - root - INFO: - Validation MSE loss: 5.516447662040603e-05
+2025-07-31 16:56:56 - root - INFO: - Validation MSE loss: 5.999979981258542e-05
+2025-07-31 17:10:56 - root - INFO: - Validation MSE loss: 4.256198550803698e-05
+2025-07-31 17:24:53 - root - INFO: - Validation MSE loss: 5.7286273760623505e-05
+2025-07-31 17:38:50 - root - INFO: - Validation MSE loss: 5.3617273463601866e-05
+2025-07-31 17:39:06 - root - INFO: - Checkpoint 3 saved !
+2025-07-31 17:52:50 - root - INFO: - Validation MSE loss: 4.537764335670063e-05
+2025-07-31 18:06:47 - root - INFO: - Validation MSE loss: 4.384119471616311e-05
+2025-07-31 18:20:44 - root - INFO: - Validation MSE loss: 5.322647574359591e-05
+2025-07-31 18:34:41 - root - INFO: - Validation MSE loss: 7.330143385795702e-05
+2025-07-31 18:48:40 - root - INFO: - Validation MSE loss: 5.31213666113663e-05
+2025-07-31 19:02:37 - root - INFO: - Validation MSE loss: 5.941514122645862e-05
+2025-07-31 19:16:34 - root - INFO: - Validation MSE loss: 4.286105185873168e-05
+2025-07-31 19:30:30 - root - INFO: - Validation MSE loss: 4.976994163656605e-05
+2025-07-31 19:44:27 - root - INFO: - Validation MSE loss: 5.0186612147062156e-05
+2025-07-31 19:58:25 - root - INFO: - Validation MSE loss: 4.0039302228227695e-05
+2025-07-31 19:58:45 - root - INFO: - Checkpoint 4 saved !
+2025-07-31 20:12:22 - root - INFO: - Validation MSE loss: 5.0086130642168925e-05
+2025-07-31 20:26:20 - root - INFO: - Validation MSE loss: 4.127338826168662e-05
+2025-07-31 20:40:18 - root - INFO: - Validation MSE loss: 5.879710767771197e-05
+2025-07-31 20:54:16 - root - INFO: - Validation MSE loss: 6.191479934250013e-05
+2025-07-31 21:08:15 - root - INFO: - Validation MSE loss: 4.1473489272308514e-05
+2025-07-31 21:22:13 - root - INFO: - Validation MSE loss: 6.382698620060551e-05
+2025-07-31 21:36:12 - root - INFO: - Validation MSE loss: 6.652194620103436e-05
+2025-07-31 21:50:10 - root - INFO: - Validation MSE loss: 5.399358574887551e-05
+2025-07-31 22:03:59 - root - INFO: - Validation MSE loss: 4.549202670983695e-05
+2025-07-31 22:17:48 - root - INFO: - Validation MSE loss: 4.297537094982569e-05
+2025-07-31 22:18:13 - root - INFO: - Checkpoint 5 saved !
+2025-07-31 22:31:38 - root - INFO: - Validation MSE loss: 4.551442665306359e-05
+2025-07-31 22:45:27 - root - INFO: - Validation MSE loss: 4.81174750585922e-05
+2025-07-31 22:59:17 - root - INFO: - Validation MSE loss: 5.503531982588184e-05
+2025-07-31 23:13:06 - root - INFO: - Validation MSE loss: 4.381802195032185e-05
+2025-07-31 23:26:56 - root - INFO: - Validation MSE loss: 4.105343426512311e-05
+2025-07-31 23:40:46 - root - INFO: - Validation MSE loss: 4.6224289603950416e-05
+2025-07-31 23:54:36 - root - INFO: - Validation MSE loss: 4.412210889604704e-05
+2025-08-01 00:08:25 - root - INFO: - Validation MSE loss: 4.7407020888593944e-05
+2025-08-01 00:22:15 - root - INFO: - Validation MSE loss: 5.069095142995269e-05
+2025-08-01 00:36:04 - root - INFO: - Validation MSE loss: 4.3513481488927486e-05
+2025-08-01 00:36:34 - root - INFO: - Checkpoint 6 saved !
+2025-08-01 00:49:54 - root - INFO: - Validation MSE loss: 4.194842146829781e-05
+2025-08-01 01:03:44 - root - INFO: - Validation MSE loss: 4.520449070886707e-05
+2025-08-01 01:17:34 - root - INFO: - Validation MSE loss: 4.0316773510568095e-05
+2025-08-01 01:31:24 - root - INFO: - Validation MSE loss: 4.8500584729529044e-05
+2025-08-01 01:45:14 - root - INFO: - Validation MSE loss: 4.639711135264495e-05
+2025-08-01 01:59:04 - root - INFO: - Validation MSE loss: 5.930936410187594e-05
+2025-08-01 02:12:54 - root - INFO: - Validation MSE loss: 4.5257902257659e-05
+2025-08-01 02:26:45 - root - INFO: - Validation MSE loss: 7.779950675089197e-05
+2025-08-01 02:40:37 - root - INFO: - Validation MSE loss: 4.832563865622635e-05
+2025-08-01 02:54:29 - root - INFO: - Validation MSE loss: 4.629726967133001e-05
+2025-08-01 02:55:03 - root - INFO: - Checkpoint 7 saved !
+2025-08-01 03:08:34 - root - INFO: - Validation MSE loss: 6.338474418965299e-05
+2025-08-01 03:22:23 - root - INFO: - Validation MSE loss: 4.4965031467500074e-05
+2025-08-01 03:36:14 - root - INFO: - Validation MSE loss: 4.0599162406686124e-05
+2025-08-01 03:50:05 - root - INFO: - Validation MSE loss: 4.3627143873130444e-05
+2025-08-01 04:03:56 - root - INFO: - Validation MSE loss: 4.778857921004589e-05
+2025-08-01 04:17:46 - root - INFO: - Validation MSE loss: 4.140602388325337e-05
+2025-08-01 04:31:36 - root - INFO: - Validation MSE loss: 4.621701017420646e-05
+2025-08-01 04:45:26 - root - INFO: - Validation MSE loss: 4.12830320587376e-05
+2025-08-01 04:59:17 - root - INFO: - Validation MSE loss: 5.180944820144195e-05
+2025-08-01 05:13:08 - root - INFO: - Validation MSE loss: 4.744531301767459e-05
+2025-08-01 05:13:46 - root - INFO: - Checkpoint 8 saved !
+2025-08-01 05:26:58 - root - INFO: - Validation MSE loss: 4.374733768891257e-05
+2025-08-01 05:40:48 - root - INFO: - Validation MSE loss: 4.1836383895190685e-05
+2025-08-01 05:54:38 - root - INFO: - Validation MSE loss: 5.060758984435024e-05
+2025-08-01 06:08:28 - root - INFO: - Validation MSE loss: 4.094683686994388e-05
+2025-08-01 06:22:18 - root - INFO: - Validation MSE loss: 4.245546727902157e-05
+2025-08-01 06:36:08 - root - INFO: - Validation MSE loss: 4.3632897588656835e-05
+2025-08-01 06:49:57 - root - INFO: - Validation MSE loss: 6.028069365248229e-05
+2025-08-01 07:03:44 - root - INFO: - Validation MSE loss: 4.187133043612204e-05
+2025-08-01 07:17:31 - root - INFO: - Validation MSE loss: 4.246325320517606e-05
+2025-08-01 07:31:18 - root - INFO: - Validation MSE loss: 5.035933167390218e-05
+2025-08-01 07:32:00 - root - INFO: - Checkpoint 9 saved !
+2025-08-01 07:45:06 - root - INFO: - Validation MSE loss: 4.868721015334968e-05
+2025-08-01 07:58:54 - root - INFO: - Validation MSE loss: 5.075338156862938e-05
+2025-08-01 08:12:42 - root - INFO: - Validation MSE loss: 4.514838677696508e-05
+2025-08-01 08:26:30 - root - INFO: - Validation MSE loss: 4.182903574658316e-05
+2025-08-01 08:40:18 - root - INFO: - Validation MSE loss: 4.103447128989121e-05
+2025-08-01 08:54:06 - root - INFO: - Validation MSE loss: 5.507034682737225e-05
+2025-08-01 09:07:54 - root - INFO: - Validation MSE loss: 3.9674871765717496e-05
+2025-08-01 09:21:43 - root - INFO: - Validation MSE loss: 4.698551909825339e-05
+2025-08-01 09:35:31 - root - INFO: - Validation MSE loss: 7.622663733438897e-05
+2025-08-01 09:49:18 - root - INFO: - Validation MSE loss: 5.374951199710683e-05
+2025-08-01 09:50:05 - root - INFO: - Checkpoint 10 saved !
+2025-08-01 10:03:12 - root - INFO: - Validation MSE loss: 7.241688002430868e-05
+2025-08-01 10:17:11 - root - INFO: - Validation MSE loss: 4.8551224391701824e-05
+2025-08-01 10:31:11 - root - INFO: - Validation MSE loss: 4.105621190087821e-05
+2025-08-01 10:45:15 - root - INFO: - Validation MSE loss: 4.4094743659228864e-05
+2025-08-01 10:59:14 - root - INFO: - Validation MSE loss: 5.650904100381916e-05
+2025-08-01 11:13:14 - root - INFO: - Validation MSE loss: 4.054543267236166e-05
+2025-08-01 11:27:10 - root - INFO: - Validation MSE loss: 4.5504204360613166e-05
+2025-08-01 11:41:09 - root - INFO: - Validation MSE loss: 5.106268648281305e-05
+2025-08-01 11:55:08 - root - INFO: - Validation MSE loss: 5.767190753912847e-05
+2025-08-01 12:09:05 - root - INFO: - Validation MSE loss: 6.630851225399133e-05
+2025-08-01 12:09:57 - root - INFO: - Checkpoint 11 saved !
+2025-08-01 12:23:01 - root - INFO: - Validation MSE loss: 4.420804047233366e-05
+2025-08-01 12:37:00 - root - INFO: - Validation MSE loss: 5.887714237271176e-05
+2025-08-01 12:50:57 - root - INFO: - Validation MSE loss: 4.30012257477762e-05
+2025-08-01 13:04:55 - root - INFO: - Validation MSE loss: 4.11109049838796e-05
+2025-08-01 13:18:52 - root - INFO: - Validation MSE loss: 4.498681132734454e-05
+2025-08-01 13:32:50 - root - INFO: - Validation MSE loss: 5.007978874512452e-05
+2025-08-01 13:46:48 - root - INFO: - Validation MSE loss: 4.78260216683707e-05
+2025-08-01 14:00:44 - root - INFO: - Validation MSE loss: 4.692824055513293e-05
+2025-08-01 14:14:38 - root - INFO: - Validation MSE loss: 4.721059630373573e-05
+2025-08-01 14:28:33 - root - INFO: - Validation MSE loss: 5.026641859336938e-05
+2025-08-01 14:29:30 - root - INFO: - Checkpoint 12 saved !
+2025-08-01 14:31:12 - root - INFO: - Saved interrupt

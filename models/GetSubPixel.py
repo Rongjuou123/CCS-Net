@@ -45,7 +45,7 @@ class GetSubPixels(object):
             img_ori = Image.fromarray(self.distribution_map*255)
             img_ori.show()
         
-    def thredshold_locate(self, cluster_dist = 12**2, thredshold_height=0.01, step=0.005, max_iter=100):
+    def thredshold_locate(self, cluster_dist = 12**2, thredshold_height=0.001, step=0.002, max_iter=100):
         """use threshold to locate
 
         Returns:
@@ -67,7 +67,9 @@ class GetSubPixels(object):
             iter_count += 1
             if iter_count > max_iter:
                 break
-
+            
+            # print("locate number:", locate_number)
+            # print("corner_num:", corner_num)
             # height adaptive
             if locate_number < corner_num:
                 thredshold_height += step
@@ -79,6 +81,8 @@ class GetSubPixels(object):
 
             # get highest value
             threshold = self.distribution_map.max() - thredshold_height
+            # print("max_value:", self.distribution_map.max())
+            # print("threshold:", threshold)
             index = np.where(self.distribution_map > threshold)
 
             # choose candidates from index with clustering
@@ -89,7 +93,7 @@ class GetSubPixels(object):
                     locate_number+=1
                 else:
                     # min dist get
-                    d = np.Inf
+                    d = np.inf
                     for can in candidates:
                         d_t = (index[0][i]-can[0])**2 + (index[1][i]-can[1])**2
                         if d_t < d:
@@ -110,7 +114,7 @@ class GetSubPixels(object):
                 i += 1
 
         if self.show_flag:
-            corner = np.zeros((480,480))
+            corner = np.zeros((2464,2056))
             for can in candidates:
                 corner[can[0],can[1]] = 255
             corner = Image.fromarray(corner)
@@ -548,7 +552,7 @@ class GetSubPixels(object):
         corner_num = self.corner_num
         flag = False
         dist = cluster_dist
-        locate_thre = 2;
+        locate_thre = 2
 
         while abs(locate_number - corner_num) > locate_thre:
             

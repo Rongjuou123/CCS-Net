@@ -24,10 +24,16 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader, random_split
 from torch.nn.functional import conv2d
 
+from dataset.DataSample import DatasetConstructerCD
 
-train_txt_path = r''
+folder_path = r"C:\Users\admin\Desktop\CCS-New\CCS\train_dataset\train_left_test33"
+dataconstructor = DatasetConstructerCD()
+dataconstructor.write_txt(folder_path=folder_path)
+
+
+train_txt_path = r"C:\Users\admin\Desktop\CCS-New\CCS\train_dataset\train_left_test33\train.txt"
 # train_txt_path = r''
-dir_checkpoint = r''
+dir_checkpoint = r"C:\Users\admin\Desktop\CCS-New\CCS\UNet_8"
 
 
 def train_net(net,
@@ -84,7 +90,9 @@ def train_net(net,
         net.train()
 
         epoch_loss = 0
-
+        # if epoch + 3 % 4 == 0:
+        #     lr *= 0.1
+        #     print(lr)
         with tqdm(total=n_train, desc=f'Epoch {epoch + 1}/{epochs}', unit='img', ncols=80) as pbar:
             for batch in train_loader:
                 imgs = batch['image']
@@ -216,7 +224,7 @@ def get_args():
                         help='Learning rate', dest='lr')
     parser.add_argument('-f', '--load', dest='load', type=str, default=r'',
                         help='Load model from a .pth file')
-    parser.add_argument('-s', '--img-size', dest='imgsize', type=int, default=480,
+    parser.add_argument('-s', '--img-size', dest='imgsize', type=int, default=[2056, 2464],
                         help='Size of input image')
     parser.add_argument('-v', '--validation', dest='val', type=float, default=10.0,
                         help='Percent of the data that is used as validation (0-100)')

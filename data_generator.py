@@ -190,7 +190,7 @@ def generate_with_pic(config):
         
         data_count += 1
 
-def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, uneven_light_flag=False):
+def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, uneven_light_flag=True):
     """Wraped for Calibration
     Workflow:
         1. In certain K, draw a fix checkboard picture => get img_fix & tf
@@ -226,11 +226,12 @@ def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, unev
         # step 1
         #========================== K and checkboard size
         corner_size = config['checkboard size'][0]#[random.randint(6)]
+        img_size = config['img size']
 
-        fx = random.rand()*(config['fx'][1] - config['fx'][0]) + config['fx'][0]
+        fx = random.random()*(config['fx'][1] - config['fx'][0]) + config['fx'][0]
         # fy = random.rand()*(config['fy'][1] - config['fy'][0]) + config['fy'][0]
         fy = fx
-        px = random.rand()*(config['px'][1] - config['px'][0]) + config['px'][0]
+        px = random.random()*(config['px'][1] - config['px'][0]) + config['px'][0]
         # py = random.rand()*(config['py'][1] - config['py'][0]) + config['py'][0]
         py = px
 
@@ -241,9 +242,9 @@ def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, unev
             'py': py
         }
 
-        fix = Checkboard(name='fix', save_path=['',''], corner_size = corner_size)
+        fix = Checkboard(name='fix', save_path=['',''], corner_size = corner_size, img_size = img_size)
         fix.camera_load(camera_parameters['fx'],camera_parameters['fy'],camera_parameters['px'],camera_parameters['py'])
-        img_fix, tf = fix.draw_fix_checkboard(fusion_flag=fusion_flag)
+        img_fix, tf, corners = fix.draw_fix_checkboard(fusion_flag=fusion_flag)
         # print(corner_size)
         # img_fix.show()
         # return
@@ -254,14 +255,14 @@ def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, unev
             cur = Checkboard(checkboard_save_path, temp_name, corner_size)
             cur.camera_load(camera_parameters['fx'],camera_parameters['fy'],camera_parameters['px'],camera_parameters['py'])
 
-            d = random.rand()*(config['d'][1] - config['d'][0]) + config['d'][0]
-            phi = random.rand()*(config['phi'][1] - config['phi'][0]) + config['phi'][0]
-            theta = random.rand()*(config['theta'][1] - config['theta'][0]) + config['theta'][0]
-
-            x = random.rand()*(config['x'][1] - config['x'][0]) + config['x'][0]
-            y = random.rand()*(config['y'][1] - config['y'][0]) + config['y'][0]
-            z = random.rand()*(config['z'][1] - config['z'][0]) + config['z'][0]
-
+            d = random.random()*(config['d'][1] - config['d'][0]) + config['d'][0]
+            phi = random.random()*(config['phi'][1] - config['phi'][0]) + config['phi'][0]
+            theta = random.random()*(config['theta'][1] - config['theta'][0]) + config['theta'][0]
+            print(d, phi, theta)
+            x = random.random()*(config['x'][1] - config['x'][0]) + config['x'][0]
+            y = random.random()*(config['y'][1] - config['y'][0]) + config['y'][0]
+            z = random.random()*(config['z'][1] - config['z'][0]) + config['z'][0]
+            print(x, y, z)
             config_move = {
                             'x': x,
                             'y': y,
@@ -272,8 +273,12 @@ def generation_script_for_calib(config, fusion_flag=False, dist_flag=False, unev
                             'tf': tf
                         }
             img_bg = None
-            flag = cur.draw_move_checkboard(img_fix, img_bg, config_move, save_flag=True, heatmap_flag=True, fusion_flag=fusion_flag, dist_flag=dist_flag, dist_k=config['dist_k'], uneven_light_flag=uneven_light_flag)
-
+            try:
+                flag = cur.draw_move_checkboard(img_fix, img_bg, corners, config_move, save_flag=True, heatmap_flag=True, fusion_flag=fusion_flag, dist_flag=dist_flag, dist_k=config['dist_k'], uneven_light_flag=uneven_light_flag)
+            except ValueError as e:
+                print(f"处理失败: {e}，跳过当前图像...")
+                flag = True
+                continue  # 直接进入下一次循环
 
 
             if flag:
@@ -288,24 +293,26 @@ if __name__ == '__main__':
     
     # Example
     config = {
-        'pathname': 'test',
-        'pose numbers' : 40,
+        'pathname': 'train_left_test33',
+        'pose numbers' : 1,
         'dist_k' : [1, -0.45, 0.2],
-        'fx': [150, 200], # 120~180 
-        'fy': [150, 200],
-        'px': [150, 200],
-        'py': [150, 200],
-        'checkboard size' : [(6,5)],
-        'img size' : 480,
-        'd': [5,8],
+        'fx': [10800, 11200], # 120~180 
+        'fy': [10800, 11200],
+        'px': [1224, 1236],
+        'py': [1024, 1032],
+        'checkboard size' : [(11, 8)],
+        'img size' : [2056, 2464],
+        'd': [360,400],
         'theta': [-10,10],
         'phi': [-10, 10],
         'x': [-10, 10],
-        'y': [-10, 10],
+        'y': [-60, 60],
         'z': [-10, 10],
-        'max': 35,
-        'start': 3
-
+        'max': 10000,
+        'start': 9500
     }
 
-    generation_script_for_calib(config, fusion_flag=True, dist_flag=True)
+
+
+
+    generation_script_for_calib(config, fusion_flag=True, dist_flag=False)
