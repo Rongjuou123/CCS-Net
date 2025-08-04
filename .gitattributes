@@ -1,1 +1,2 @@
 C:/Users/19162/Desktop/CCS-New/CCS/weights/CornerDetection/PretrainedCornerDetectionModel.pth filter=lfs diff=lfs merge=lfs -text
+C:/Users/19162/Desktop/CCS-New/CCS/demo_data/chessboard/left/DetectRes/color_img filter=lfs diff=lfs merge=lfs -text
